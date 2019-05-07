@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">KilifiHouses</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">name</string>
+    <string name="password">password</string>
+    <string name="login">LOGIN</string>
+    <string name="no_of_attempts_remaining">No.of attempts remaining</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="new_user_register">New User? Register</string>
+</resources>
