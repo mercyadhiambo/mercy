@@ -4,8 +4,6 @@ package com.example.student.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +15,6 @@ import com.example.student.myapplication.adapters.BedsitterRecylerAdapter;
 import com.example.student.myapplication.dataModels.HouseModels;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +51,7 @@ public class BedsitterFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         mRecyclerView = view.findViewById(R.id.bedsitterRecycler);
-        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         latestList = new ArrayList<>();
@@ -78,9 +75,11 @@ public class BedsitterFragment extends Fragment {
             );
             latestList.add(houseModels);
         }
-        mRecyclerAdapter = new BedsitterRecylerAdapter(mContext,latestList);
+        mRecyclerAdapter = new BedsitterRecylerAdapter(latestList);
         mRecyclerView.setAdapter(mRecyclerAdapter);
     }
+
+
     @Override
     public void onStart() {
         super.onStart();

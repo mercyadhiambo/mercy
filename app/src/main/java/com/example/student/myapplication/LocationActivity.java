@@ -5,20 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuInflater;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.GridLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.view.View;
+import android.widget.GridLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LocationActivity extends AppCompatActivity {
-
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +24,48 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         GridLayout gridlayout = (GridLayout) findViewById(R.id.mainGrid);
-
+        firebaseAuth = FirebaseAuth.getInstance();
         gridClickActivity(gridlayout);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_about:
+                Intent openAboutPage = new Intent(LocationActivity.this, BookedActivity.class);
+                startActivity(openAboutPage);
+                break;
+
+            case R.id.log:
+                firebaseAuth.signOut();
+                break;
+        }
+        //noinspection SimplifiableIfStatement
+       /* if (id == R.id.action_about) {
+
+            return true;
+        }
+        else if(id == R.id.log){
+
+        } else {}*/
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void gridClickActivity(GridLayout gridlayout) {
@@ -69,30 +104,28 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser mUser = firebaseAuth.getCurrentUser();
+        if (mUser == null) {
+            Intent intent = new Intent(LocationActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            Intent openAboutPage = new Intent(LocationActivity.this, About.class);
-            startActivity(openAboutPage);
-            return true;
+    protected void onStop() {
+        super.onStop();
+        FirebaseUser mUser = firebaseAuth.getCurrentUser();
+        if (mUser == null) {
+            Intent intent = new Intent(LocationActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+
 }
 
 

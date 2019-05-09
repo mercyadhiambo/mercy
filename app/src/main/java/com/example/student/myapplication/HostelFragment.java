@@ -3,8 +3,6 @@ package com.example.student.myapplication;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,9 +49,8 @@ public class HostelFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hostel, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        mRecyclerView = getActivity().findViewById(R.id.hostelRecycler);
-        mContext = getActivity().getApplicationContext();
-        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView = view.findViewById(R.id.hostelRecycler);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         latestList = new ArrayList<>();
@@ -75,7 +72,7 @@ public class HostelFragment extends Fragment {
             );
             latestList.add(houseModels);
         }
-        mRecyclerAdapter = new BedsitterRecylerAdapter(mContext,latestList);
+        mRecyclerAdapter = new BedsitterRecylerAdapter(latestList);
         mRecyclerView.setAdapter(mRecyclerAdapter);
     }
 

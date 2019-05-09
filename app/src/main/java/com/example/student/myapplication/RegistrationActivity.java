@@ -1,9 +1,9 @@
 package com.example.student.myapplication;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,9 +31,13 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         mAuth = FirebaseAuth.getInstance();
-        userLogin = findViewById(R.id.tvRegister);
+
+        userLogin = findViewById(R.id.tvUserLogin);
         regButton =findViewById(R.id.btnRegister);
 
+        userName = findViewById(R.id.edtUserName);
+        userPassword = findViewById(R.id.edtUserPassword);
+        userEmail = findViewById(R.id.edtUserEmail);
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +52,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                                finish();
                             } else {
-                                Toast.makeText(RegistrationActivity.this, "Registration unsuccessful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrationActivity.this, "Registration not successful", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -58,7 +63,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         });
-
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

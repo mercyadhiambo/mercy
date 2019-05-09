@@ -1,16 +1,14 @@
 package com.example.student.myapplication;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -69,25 +67,4 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser mUser = firebaseAuth.getCurrentUser();
-        if(mUser == null){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FirebaseUser mUser = firebaseAuth.getCurrentUser();
-        if(mUser == null){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 }
